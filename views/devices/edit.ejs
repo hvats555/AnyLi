@@ -1,0 +1,13 @@
+<div>
+    <h1>Edit device</h1>
+    <div>
+        <form action="/device/<%=device._id%>?_method=PUT" method="post">
+            <div>
+                <input type="text" name="deviceName" value="<%=device.name%>" placeholder="Enter device name...">
+                <input type="submit">
+            </div>
+        </form>
+    </div>
+    <a href="/devices">See all devices</a>
+</div>
+

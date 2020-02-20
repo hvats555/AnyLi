@@ -1,0 +1,27 @@
+<div>
+    <a href="/logout">Logout</a>
+    <p><%=currentUser.name%>'s Devices</p>
+
+        <% devices.forEach((device) => { %>
+            <div>
+                <h1><%=device.name%></h1>
+                <%if(device.status == true){%>
+                    <p>Status : ON</p>
+                <%} else{ %>
+                    <p>Status : OFF</p>
+                <%}%>
+                <form action="/device/<%=device._id%>/edit/status?_method=PUT" method="post">
+                    <input type="submit" name="switchStatusButton" value="Click">
+                </form>
+
+                <form action="/device/<%=device._id%>?_method=DELETE" method="post">
+                    <input type="submit" name="delete" value="Delete">
+                </form>
+                <a href="/device/<%=device._id%>/edit">Edit</a>
+            <% }); %>
+        </div>
+        <!-- Rounded switch -->
+    <a href="/device/new">Add a new device</a>
+</div>
+
+
