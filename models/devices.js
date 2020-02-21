@@ -2,19 +2,36 @@ let mongoose = require("mongoose");
 let passportLocalMongoose = require("passport-local-mongoose");
 
 let DeviceSchema = new mongoose.Schema({
-    name : String,
-    status : {type : Boolean, default: false},
-    createdAt: {type : Date, default: Date.now},
+    connectionKey:{
+        type : String,
+        require : true
+    },
+    name : {
+        type : String,
+        require: true
+    },
+    status : {
+        type : Boolean,
+        require: true,
+        default: false
+    },
+    createdAt: {
+        type : Date,
+        default: Date.now
+    },
 
     user : {
         id:{
             type : mongoose.Schema.Types.ObjectID,
-            ref : "User"
+            ref : "User",
+            require : true
         },
-        username : String,
-        name : String,
+        name : {
+            type : String,
+            require : true
+        },
         email : String
-    }
+    },
 });
 
 DeviceSchema.plugin(passportLocalMongoose);

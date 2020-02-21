@@ -1,7 +1,10 @@
 let express = require("express"),
     middleware = require("../middleware"),
     {isLoggedIn} = middleware,
-    router = express.Router();
+    router = express.Router(),
+    shortid = require("shortid");
+
+shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
 
 // Database models
 let Devices = require("../models/devices");
@@ -35,13 +38,15 @@ router.get("/device/:id/edit", (req, res)=>{
 // Saving the new device data to the database
 router.post("/device", isLoggedIn, (req, res) => {
    let deviceName = req.body.deviceName;
+   let connectionKey = shortid.generate();
    let user = {
       id: req.user._id,
       name : req.user.name,
       email : req.user.email,
       username : req.user.username
    };
-   let newDevice = {name : deviceName, user};
+   console.log(req.user.username);
+   let newDevice = {connectionKey : connectionKey, name : deviceName, user};
    Devices.create(newDevice, (err, newlyCreated) => {
       if(err){
          console.log(err);

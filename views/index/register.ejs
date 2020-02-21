@@ -1,18 +1,19 @@
+<%- include('../partials/header') %>
 <div class="row">
     <h1>Sign Up</h1>
     <div>
         <form action="/register" method="post">
             <div>
-                <input type="text" name="name" placeholder="Full name">
+                <input type="text" name="name" placeholder="Full name" required>
             </div>
             <div>
-                <input type="text" name="username" placeholder="username">
+                <input type="text" name="username" placeholder="username" required>
             </div>
             <div>
-                <input type="text" name="email" placeholder="E-mail">
+                <input type="email" name="email" placeholder="E-mail" required>
             </div>
             <div>
-                <input type="password" name="password" placeholder="password">
+                <input type="password" name="password" placeholder="password" required>
             </div>
             <div>
                 <button>Sign Up!</button>
@@ -22,3 +23,4 @@
     </div>
     <p>Already registered? <a href="/login">Login now</a></p>
 </div>
+<%- include('../partials/footer') %>

@@ -6,9 +6,13 @@ let express = require('express'),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
     app     = express();
+
+    require("dotenv").config();
+
 // Required routes
 let devices = require("./routes/devices"),
-    index   = require("./routes/index");
+    index   = require("./routes/index"),
+    api     = require("./routes/api");
 
 // Database models
 
@@ -38,18 +42,20 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-let databaseURL = "mongodb://127.0.0.1:27017/leo";
+//let databaseURL = "mongodb://127.0.0.1:27017/leo";
+const databaseURI = "mongodb+srv://himalayavats:hvats555@anyli-qnbkg.mongodb.net/AnyLi?retryWrites=true&w=majority";
 
-mongoose.connect(databaseURL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
+mongoose.connect(databaseURI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
     .then(() => console.log(`Database connected`))
     .catch(err => console.log(`Database connection error: ${err.message}`));
 
 // using routes
 app.use("/", devices);
 app.use("/", index);
+app.use("/", api);
 
 // running the server
-app.listen(3000, () => {
+app.listen(5000, () => {
     console.log("Server is running...");
 });
 
