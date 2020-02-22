@@ -1,11 +1,11 @@
-let express = require('express'),
-    bodyParser = require('body-parser'),
-    mongoose = require("mongoose"),
-    passport = require("passport"),
-    cookieParser = require("cookie-parser"),
-    LocalStrategy = require("passport-local"),
+let express        = require('express'),
+    bodyParser     = require('body-parser'),
+    mongoose       = require("mongoose"),
+    passport       = require("passport"),
+    cookieParser   = require("cookie-parser"),
+    LocalStrategy  = require("passport-local"),
     methodOverride = require("method-override"),
-    app     = express();
+    app            = express();
 
     require("dotenv").config();
 
@@ -16,7 +16,7 @@ let devices = require("./routes/devices"),
 
 // Database models
 
-let User = require("./models/users");
+let User   = require("./models/users");
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
@@ -37,13 +37,14 @@ app.use((req, res, next)=>{
    res.locals.currentUser = req.user;
    next();
 });
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+let databaseURI = "mongodb://himalaya:hvats555@157.245.252.85:27017";
 
-//let databaseURL = "mongodb://127.0.0.1:27017/leo";
-const databaseURI = "mongodb+srv://himalayavats:hvats555@anyli-qnbkg.mongodb.net/AnyLi?retryWrites=true&w=majority";
+//const databaseURI = "mongodb+srv://himalayavats:hvats555@anyli-qnbkg.mongodb.net/AnyLi?retryWrites=true&w=majority";
 
 mongoose.connect(databaseURI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
     .then(() => console.log(`Database connected`))
@@ -55,7 +56,9 @@ app.use("/", index);
 app.use("/", api);
 
 // running the server
-app.listen(5000, () => {
+
+app.set('port', (process.env.PORT || 5000));
+app.listen(app.get('port'), () => {
     console.log("Server is running...");
 });
 

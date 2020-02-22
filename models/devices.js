@@ -25,13 +25,8 @@ let DeviceSchema = new mongoose.Schema({
             type : mongoose.Schema.Types.ObjectID,
             ref : "User",
             require : true
-        },
-        name : {
-            type : String,
-            require : true
-        },
-        email : String
-    },
+        }
+    }
 });
 
 DeviceSchema.plugin(passportLocalMongoose);

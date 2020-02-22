@@ -19,7 +19,7 @@ router.post("/login", passport.authenticate("local",
     {
         successRedirect : "/devices",
         failureRedirect : "/login",
-        failureFlash : true
+        //failureFlash : true
 }), (req, res) => {});
 
 // showing the register form page
@@ -36,7 +36,7 @@ router.post("/register", (req, res)=>{
        });
    User.register(newUser, req.body.password, (err, user) => {
        if(err){
-           console.log("Something went wrong");
+           console.log(err);
        }
        passport.authenticate("local")(req, req, () => {
           res.redirect("/devices");

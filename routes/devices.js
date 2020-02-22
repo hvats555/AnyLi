@@ -41,11 +41,7 @@ router.post("/device", isLoggedIn, (req, res) => {
    let connectionKey = shortid.generate();
    let user = {
       id: req.user._id,
-      name : req.user.name,
-      email : req.user.email,
-      username : req.user.username
    };
-   console.log(req.user.username);
    let newDevice = {connectionKey : connectionKey, name : deviceName, user};
    Devices.create(newDevice, (err, newlyCreated) => {
       if(err){
