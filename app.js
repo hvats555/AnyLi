@@ -57,8 +57,9 @@ app.use("/", api);
 
 // running the server
 
-app.set('port', (process.env.PORT || 5000));
-app.listen(app.get('port'), () => {
+//app.set('port', (process.env.PORT || 5000));
+
+app.listen(5000, () => {
     console.log("Server is running...");
 });
 
